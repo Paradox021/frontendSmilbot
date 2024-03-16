@@ -1,0 +1,26 @@
+---
+// Tu lógica de componente aquí si es necesario
+---
+
+<div class="background">
+    <!-- El slot aquí permite que puedas insertar cualquier contenido dentro del componente de fondo -->
+    <slot/>
+</div>
+
+<style>
+  /* un background con una gradiente de un negro a naranja hacia abajo a la derecha 
+  (como si seria un atardecer y en esa esquina estuviera el sol)
+  */
+  .background {
+    background: radial-gradient(ellipse at bottom, rgb(36, 20, 8) 4%,  #111 60%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+  
+  html, body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+  }
+</style>
