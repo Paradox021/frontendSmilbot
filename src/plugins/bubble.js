@@ -96,7 +96,7 @@ var Bubble = function () {
         this.speedModifier = 2;
 
         // Set the target radius
-        this.targetR = rand(20, 120) *0.1;
+        this.targetR = rand(20, 120) *0.125;
 
         // Start with a very small radius to make the bubble "grow"
         this.r = 0.1;
