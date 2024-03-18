@@ -6,7 +6,7 @@
     <!-- El slot aquí permite que puedas insertar cualquier contenido dentro del componente de fondo -->
     <video autoplay muted loop id="myVideo" src="/bg-animated.mkv">
     </video>
-    <canvas id="canvasbg"></canvas>
+    <!--<canvas id="canvasbg"></canvas>-->
     <canvas id="canvas"></canvas>
     <script src="/src/plugins/bubble.js"></script>
 
@@ -26,17 +26,26 @@
         width: 100vw;
         overflow: hidden;
         position: absolute;
-        z-index: -10;
+        z-index: 0;
         box-sizing: border-box;
     }
 
-    video, #canvas, #canvasbg{
+    video{
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         height: auto;
         width: 100vw;
         pointer-events: none;
+        bottom: 0;
+    }
+
+    #canvas, #canvasbg{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        height: auto;
+        width: 100vw;
         bottom: 0;
     }
 

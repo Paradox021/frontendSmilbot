@@ -11,24 +11,29 @@ var Bubbles = function () {
         this.ctx = this.canvas.getContext('2d');
         this.canvas.height = window.innerHeight;
         this.canvas.width = window.innerWidth;
-        this.canvasbg = document.getElementById('canvasbg');
-        this.ctxbg = this.canvasbg.getContext('2d');
-        this.canvasbg.height = window.innerHeight;
-        this.canvasbg.width = window.innerWidth;
+        // this.canvasbg = document.getElementById('canvasbg');
+        // this.ctxbg = this.canvasbg.getContext('2d');
+        // this.canvasbg.height = window.innerHeight;
+        // this.canvasbg.width = window.innerWidth;
         this.aBubbles = [];
-        this.aBgBubbles = [];
+        // this.aBgBubbles = [];
 
         this.lastUpdateTime = Date.now(); // Initialize the last update time for delta calculation
 
     }
 
     Bubbles.prototype.addBubble = function addBubble() {
-        this.aBubbles.push(new Bubble());
+        var coin_flip = Math.random() > 0.5;
+        if(coin_flip){
+            this.aBubbles.push(new Bubble('rgba(255,169,99,0.73)', 3.5));
+        } else {
+            this.aBubbles.push(new Bubble());
+        }
     };
 
-    Bubbles.prototype.addBgBubble = function addBgBubble() {
-        this.aBgBubbles.push(new Bubble('rgba(255,169,99,0.73)', 3.5)); // Color for the bubbles in the back
-    };
+    // Bubbles.prototype.addBgBubble = function addBgBubble() {
+    //     this.aBgBubbles.push(new Bubble('rgba(255,169,99,0.73)', 3.5)); // Color for the bubbles in the back
+    // };
 
     Bubbles.prototype.update = function update() {
         var now = Date.now();
@@ -41,24 +46,26 @@ var Bubbles = function () {
             if (!this.aBubbles[i].life) this.aBubbles.splice(i, 1);
         }
 
-        for (var i = this.aBgBubbles.length - 1; i >= 0; i--) {
-            this.aBgBubbles[i].update(dt);
+        // for (var i = this.aBgBubbles.length - 1; i >= 0; i--) {
+        //     this.aBgBubbles[i].update(dt);
+        //
+        //     if (!this.aBgBubbles[i].life) this.aBgBubbles.splice(i, 1);
+        // }
 
-            if (!this.aBgBubbles[i].life) this.aBgBubbles.splice(i, 1);
+        if (this.aBubbles.length < window.innerWidth / 70) {
+            this.addBubble();
         }
 
-        if (this.aBubbles.length < window.innerWidth / 80) this.addBubble();
-
-        if (this.aBgBubbles.length < window.innerWidth / 240) this.addBgBubble();
+        // if (this.aBgBubbles.length < window.innerWidth / 240) this.addBgBubble();
     };
 
     Bubbles.prototype.draw = function draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctxbg.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        // this.ctxbg.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        for (var i = this.aBgBubbles.length - 1; i >= 0; i--) {
-            this.aBgBubbles[i].draw(this.ctxbg);
-        }
+        // for (var i = this.aBgBubbles.length - 1; i >= 0; i--) {
+        //     this.aBgBubbles[i].draw(this.ctxbg);
+        // }
 
         for (var i = this.aBubbles.length - 1; i >= 0; i--) {
             this.aBubbles[i].draw(this.ctx);
@@ -80,6 +87,23 @@ var Bubbles = function () {
 
     Bubbles.prototype.stop = function stop() {
         this.bRuning = false;
+    };
+
+    Bubbles.prototype.handleClick = function (event) {
+        var rect = this.canvas.getBoundingClientRect();
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
+        var leniencyFactor = 1.5;  // Increase this to make bubbles easier to pop. For example, 1.1 means 10% more lenient.
+
+        for (var i = this.aBubbles.length - 1; i >= 0; i--) {
+            var bubble = this.aBubbles[i];
+            var effectiveRadius = Math.max(bubble.r * leniencyFactor, 10); // Increase the radius for clicking detection
+            var distance = Math.sqrt((x - bubble.x) ** 2 + (y - bubble.y) ** 2);
+            if (distance < effectiveRadius) {
+                bubble.life = false;
+                break;  // Stop checking once a bubble is clicked
+            }
+        }
     };
 
     return Bubbles;
@@ -128,11 +152,9 @@ var Bubble = function () {
             this.growing = false;
         }
 
-        if (this.y < 0 || this.x < 0 || this.x > window.innerWidth || this.y > window.innerHeight) {
-            this.r -= this.vr * dt /2;
-            if (this.r <= 1) {  // Assuming 1 is the minimum radius before it grows back
+        if (this.y < -100 || this.x < 0 || this.x > window.innerWidth || this.y > window.innerHeight) {
                 this.life = false;
-            }
+
         }
     };
 
@@ -158,6 +180,9 @@ var oBubbles = undefined;
 var init = function init() {
     oBubbles = new Bubbles();
     oBubbles.start();
+    oBubbles.canvas.addEventListener('click', function(event) {
+        oBubbles.handleClick(event);
+    });
 };
 window.onresize = onresize;
 window.onload = init;
