@@ -129,7 +129,10 @@ var Bubble = function () {
         }
 
         if (this.y < 0 || this.x < 0 || this.x > window.innerWidth || this.y > window.innerHeight) {
-            this.life = false;
+            this.r -= this.vr * dt /2;
+            if (this.r <= 1) {  // Assuming 1 is the minimum radius before it grows back
+                this.life = false;
+            }
         }
     };
 
