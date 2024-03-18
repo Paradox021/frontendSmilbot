@@ -1,11 +1,12 @@
 ---
-
+import { Image } from 'astro:assets';
+import cadImage from '../../public/cat.webp';
 ---
 
 <>
     <div class="login-card">
         <div class="image-container">
-            <img src="/cat.webp" alt="Profile Image" class="profile-image" />
+            <Image src={cadImage} alt="a cute orange cat." class="profile-image" />
         </div>
         <h2 class="text">Welcome to Smilbot</h2>
         <!-- TODO: Añadir un elemento 'a' con href al endpoint /auth/discord del back  -->
