@@ -17,6 +17,9 @@ var Bubbles = function () {
         this.canvasbg.width = window.innerWidth;
         this.aBubbles = [];
         this.aBgBubbles = [];
+
+        this.lastUpdateTime = Date.now(); // Initialize the last update time for delta calculation
+
     }
 
     Bubbles.prototype.addBubble = function addBubble() {
@@ -28,17 +31,18 @@ var Bubbles = function () {
     };
 
     Bubbles.prototype.update = function update() {
+        var now = Date.now();
+        var dt = (now - this.lastUpdateTime) / 1000;
+        this.lastUpdateTime = now;
 
         for (var i = this.aBubbles.length - 1; i >= 0; i--) {
-
-            this.aBubbles[i].update();
+            this.aBubbles[i].update(dt);
 
             if (!this.aBubbles[i].life) this.aBubbles.splice(i, 1);
         }
 
         for (var i = this.aBgBubbles.length - 1; i >= 0; i--) {
-
-            this.aBgBubbles[i].update();
+            this.aBgBubbles[i].update(dt);
 
             if (!this.aBgBubbles[i].life) this.aBgBubbles.splice(i, 1);
         }
@@ -89,7 +93,7 @@ var Bubble = function () {
 
         _classCallCheck(this, Bubble);
 
-        this.speedModifier = 0.1;
+        this.speedModifier = 2;
 
         // Set the target radius
         this.targetR = rand(20, 120) *0.1;
@@ -112,29 +116,23 @@ var Bubble = function () {
 
     }
 
-    Bubble.prototype.update = function update() {
-
+    Bubble.prototype.update = function update(dt) {
         this.vy += .07 * this.speedModifier;
-        this.vr += .012 * this.speedModifier;
-        this.y -= this.vy * this.speedModifier;
-        this.x += this.vx;
+        this.vr += .012;
+        this.y -= this.vy * dt;
+        this.x += this.vx * dt;
 
-
-        // Grow the bubble until it reaches its target radius
         if (this.r < this.targetR && this.growing) {
-            this.r += this.vr * this.speedModifier ;
-        }
-
-        // Once the bubble has reached its target size, it starts to shrink as before
-        if (this.r >= this.targetR) {
-            this.r -= this.vr * this.speedModifier;
+            this.r += this.vr * dt;
+        } else if (this.r >= this.targetR) {
             this.growing = false;
         }
 
-        if ((this.r <= 1 || this.y < 0 || this.x < 0 || this.x > window.innerWidth || this.y > window.innerHeight) && !this.growing){
+        if (this.y < 0 || this.x < 0 || this.x > window.innerWidth || this.y > window.innerHeight) {
             this.life = false;
         }
     };
+
 
     Bubble.prototype.draw = function draw(ctx) {
         ctx.beginPath();
