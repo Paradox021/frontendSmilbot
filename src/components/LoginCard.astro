@@ -10,7 +10,7 @@ import cadImage from '../../public/cat.webp';
         </div>
         <h2 class="text">Welcome to Smilbot</h2>
         <!-- TODO: Añadir un elemento 'a' con href al endpoint /auth/discord del back  -->
-        <button class="login-button">Login with <img id="dc-logo" src="/public/discord-logo-white.svg" alt=""/></button>
+        <button class="login-button"><a href="http://localhost:3000/auth/discord">Login with <img id="dc-logo" src="/discord-logo-white.svg" alt=""/></a></button>
 
         <!-- Background noise -->
         <div style="height: 0; width: 0; position: absolute; visibility: hidden;">
@@ -25,6 +25,17 @@ import cadImage from '../../public/cat.webp';
 </>
 
 <style>
+    a {
+        text-decoration: none;
+        color: #fff;
+        
+        display: flex;
+        align-content: center;
+        place-content: center;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+    }
     .login-card {
         place-self: center;
         justify-self: center;
