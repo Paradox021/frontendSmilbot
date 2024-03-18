@@ -9,7 +9,7 @@
         </div>
         <h2 class="text">Welcome to Smilbot</h2>
         <!-- TODO: Añadir un elemento 'a' con href al endpoint /auth/discord del back  -->
-        <button class="login-button">Login with Discord</button>
+        <button class="login-button">Login with <img id="dc-logo" src="/public/discord-logo-white.svg" alt=""/></button>
 
         <!-- Background noise -->
         <div style="height: 0; width: 0; position: absolute; visibility: hidden;">
@@ -77,8 +77,9 @@
 
     .text {
         margin-top: 20px;
-        font-size: 18px;
-        font-family: sans-serif;
+        font-size: 1.5rem;
+        font-family: "Montserrat ExtraBold", sans-serif;
+        letter-spacing: 2px;
         font-weight: bold;
         color: #fff;
     }
@@ -87,12 +88,39 @@
         margin-top: 20px;
         padding: 15px 20px;
         border-radius: 25px;
+        width: 75%;
         background-color: #df7030;
-        color: #fff;
-        font-size: 16px;
-        font-weight: bold;
-        font-family: sans-serif;
         cursor: pointer;
-        border: 1px solid #7a6b5e;
+        border: 1px solid rgba(232, 163, 123, 0.31);
+        box-shadow: inset 5px 10px 15px rgba(255, 255, 255, 0.6), 0 0 15px rgba(0, 0, 0, 1), inset 0 -5px 20px rgba(0,0,0, .9);
+        transition: background-color ease-in-out 0.1s, transform ease-in-out 0.4s, box-shadow ease-in-out 0.4s;
+
+        font-size: 1rem;
+        font-family: "Montserrat ExtraBold", sans-serif;
+        letter-spacing: 1px;
+        font-weight: bold;
+        color: #fff;
+
+        display: flex;
+        align-content: center;
+        place-content: center;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
     }
+
+    .login-button:hover, .login-button:focus {
+        background-color: #fd9d42;
+        transform: scale(1.05);
+        box-shadow: inset 5px 10px 15px rgba(255, 255, 255, 0.6), 0 0 40px rgba(0, 0, 0, 1), inset 0 -5px 20px rgba(0,0,0, .9);
+    }
+
+    #dc-logo {
+       height: 1.5rem;
+        object-fit: contain;
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+
 </style>
