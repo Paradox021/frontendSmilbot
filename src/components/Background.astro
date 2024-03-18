@@ -40,17 +40,15 @@
         bottom: 0;
     }
 
-    #canvas, #canvasbg{
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+    #canvas{
+        position: fixed;
         height: auto;
         width: 100vw;
         bottom: 0;
     }
 
     @media only screen and (max-aspect-ratio: 1920/1080) {
-        video{
+        video, #canvas{
             width: auto;
             height: 100vh;
         }
