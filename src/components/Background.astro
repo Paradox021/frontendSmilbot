@@ -6,7 +6,11 @@
     <!-- El slot aquí permite que puedas insertar cualquier contenido dentro del componente de fondo -->
     <video autoplay muted loop id="myVideo" src="/bg-animated.mkv">
     </video>
-    <slot/>
+    <canvas id="canvasbg"></canvas>
+    <canvas id="canvas"></canvas>
+    <script src="/src/plugins/bubble.js"></script>
+
+        <slot/>
 </div>
 
 <style>
@@ -17,23 +21,23 @@
         //background: radial-gradient(ellipse at bottom, rgb(36, 20, 8) 4%, #111 60%);
         background-image: url("/bg.png");
         background-repeat:no-repeat;
-        background-position: bottom;
         background-size: cover;
-
-        display: flex;
-        justify-content: center;
-        position: relative;
-
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        position: absolute;
+        z-index: -10;
+        box-sizing: border-box;
     }
 
-    video{
+    video, #canvas, #canvasbg{
         position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
         height: auto;
         width: 100vw;
-        bottom: 0;
         pointer-events: none;
-
-
+        bottom: 0;
     }
 
     @media only screen and (max-aspect-ratio: 1920/1080) {
@@ -42,6 +46,8 @@
             height: 100vh;
         }
     }
+
+
 
 
 </style>
