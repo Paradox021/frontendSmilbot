@@ -1,15 +1,14 @@
 ---
+import Layout from "../layouts/Layout.astro"
 
 const cookie:any = Astro.request.headers.get('cookie');
-console.log(cookie);
-if(!cookie.includes('accessToken') || !cookie.includes('refreshToken')) {
-  console.log('redirecting to login');
-  Astro.response.status = 302;
-  Astro.response.headers.set('Location', '/login');
+
+if(cookie && !cookie.includes('accessToken') || !cookie.includes('refreshToken')) {
+  return Astro.redirect('/login', 302);
 }
 
 ---
 
-<html>
-
-</html>
+<Layout title="Home">
+  
+</Layout>
