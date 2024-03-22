@@ -1,0 +1,33 @@
+---
+const { title, username } = Astro.props;
+---
+<head>
+    <link rel="icon" href="/cat_icon_138789.png" type="image/x-icon" />
+    <title>{title}</title>
+    <div class="flex justify-between items-center py-3 px-8 bg-orange-400">
+        <h1 class="text-2xl font-bold">Smilbo</h1>
+        <nav class="flex space-x-16 text-lg font-semibold">
+            <a href="/home">Home</a>
+            <a href="/collection">Collection</a>
+            <a href="/shop">Shop</a>
+            <a href="/market">Market</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <div class="px-4 py-4 rounded-full shadow-md">
+                <img src="/profile.png" alt="profile" />
+            </div>
+            <div class="">
+                <p>{username}</p>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</head>
+
+<style>
+    
+
+</style>

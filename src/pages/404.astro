@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro"
+import image404 from "../../public/this-is-fine-404.gif";
+
+const cookie:any = Astro.request.headers.get('cookie');
+
+if(!cookie || !cookie.includes('accessToken') || !cookie.includes('refreshToken') || !cookie.includes('user')) {
+  return Astro.redirect('/login', 302);
+}
+
+const accessToken = cookie.split(';').find((c: string) => c.includes('accessToken')).split('=')[1];
+const refreshToken = cookie.split(';').find((c: string) => c.includes('refreshToken')).split('=')[1];
+const user = cookie.split(';').find((c: string) => c.includes('user')).split('=')[1];
+
+---
+<Layout title="Home">
+  <div class="flex flex-col justify-center items-center h-[80vh] gap-4">
+    <h1 class="text-4xl font-bold text-white"> 404 Page Not Found </h1>
+    <Image src={image404} alt="this is fine 404." />
+  </div>
+</Layout>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+</style>
+
