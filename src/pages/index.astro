@@ -6,7 +6,7 @@ import LoginCard from '../components/LoginCard.astro';
 const cookie:any = Astro.request.headers.get('cookie');
 
 // Si el usuario no está autenticado, redirige a la página de inicio.
-if (cookie && !cookie.includes('accessToken') || !cookie.includes('refreshToken'))
+if (!cookie || !cookie.includes('accessToken') || !cookie.includes('refreshToken') || !cookie.includes('user'))
   return Astro.redirect('/login', 302);
 
 

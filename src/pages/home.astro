@@ -3,9 +3,15 @@ import Layout from "../layouts/Layout.astro"
 
 const cookie:any = Astro.request.headers.get('cookie');
 
-if(cookie && !cookie.includes('accessToken') || !cookie.includes('refreshToken')) {
+if(!cookie || !cookie.includes('accessToken') || !cookie.includes('refreshToken') || !cookie.includes('user')) {
   return Astro.redirect('/login', 302);
 }
+
+const accessToken = cookie.split(';').find((c: string) => c.includes('accessToken')).split('=')[1];
+const refreshToken = cookie.split(';').find((c: string) => c.includes('refreshToken')).split('=')[1];
+const user = cookie.split(';').find((c: string) => c.includes('user')).split('=')[1];
+
+console.log(accessToken, refreshToken, user);
 
 ---
 
