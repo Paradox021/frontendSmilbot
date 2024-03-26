@@ -13,17 +13,15 @@ const refreshToken = cookie.split(';').find((c: string) => c.includes('refreshTo
 const user = cookie.split(';').find((c: string) => c.includes('user')).split('=')[1];
 
 console.log(accessToken, refreshToken, user);
-
 ---
 
 <Layout title="Home">
   <div class=" flex flex-col items-center justify-center h-screen">
     <h1 class="text-4xl font-bold text-gray-100">Welcome to the Home Page</h1>
     <div class="flex flex-wrap justify-center mt-10 gap-4">
-      <Card title="Card 1" description="This is the first card" />
-      <Card title="Card 2" description="This is the second card" />
-      <Card title="Card 3" description="This is the third card" />
+      <Card title="Card 1" description="This is the first card" rarity="rare"/>
+      <Card title="Card 2" description="This is the second card" rarity="common"/>
+      <Card title="Card 3" description="This is the third card" rarity="epic"/>
     </div>
-
   </div>
 </Layout>
