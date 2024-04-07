@@ -16,7 +16,9 @@ const AppContent = () => {
       {isAuthenticated && <Navbar />}
       <Routes>
         <Route path="/login" element={<PublicRoute><Login/></PublicRoute>} />
+        <Route path="/home" element={<PrivateRoute><Saludo /></PrivateRoute>} />
         <Route path="/" element={<PrivateRoute><Saludo /></PrivateRoute>} />
+        <Route path="*" element={<PrivateRoute><h1>Not Found</h1></PrivateRoute>} />
       </Routes>
     </>
   );
